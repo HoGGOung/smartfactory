@@ -1,0 +1,51 @@
+namespace ConsoleApp21
+{
+    class car
+    {
+        //멤버변수
+        public int speed;
+        public string brand;
+        //생성자
+        public car()
+        {
+            this.speed = 0;
+            this.brand = "현대";
+        }
+        public car(string brand)
+        {
+            this.speed = 100;
+            this.brand = brand;
+        }
+        //멤버 메소드
+        public string Run(int _speed)
+        {
+            this.speed = _speed;
+
+            return this.speed + "km 속도로 달립니다.";
+        }
+        public string Run()
+        {
+            this.speed = 0;
+
+            return this.speed + "km 속도로 달립니다.";
+        }
+
+        public string ShowBrand()
+        {
+            return "제 브랜드 명은 " + this.brand + "입니다.";
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            car tony = new car();
+            Console.Write(tony.ShowBrand());
+            Console.WriteLine(tony.Run(80));
+
+            car jack = new car("제네시스");
+            Console.Write(jack.ShowBrand());
+            Console.WriteLine(jack.Run(200));
+        }
+    }
+}
