@@ -1,0 +1,16 @@
+namespace ConsoleApp20
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int k = 1;
+            int i = 3;
+            do
+            {
+                Console.WriteLine($"{i}*{k}={i*k}");
+                k++;
+            } while (k < 10);
+        }
+    }
+}
