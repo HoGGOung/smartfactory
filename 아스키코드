@@ -1,0 +1,14 @@
+namespace ConsoleApp11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            double PI = 3.141592;
+            char c= 'A';
+            char d = (char)65;
+            Console.WriteLine($"{PI} {c} {d}");
+            
+        }
+    }
+}
