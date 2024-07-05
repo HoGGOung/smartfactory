@@ -1,0 +1,17 @@
+class Myclass
+{
+    public void Print()
+    {
+        Console.WriteLine("Myclass Hello");
+    }
+    public void Print(string d)
+    {
+        Console.WriteLine(d);
+    }
+}//end of Myclass
+static void Main(string[] args)
+{
+    Myclass mc = new Myclass();
+    mc.Print();
+    mc.Print("반값습니다");
+}
