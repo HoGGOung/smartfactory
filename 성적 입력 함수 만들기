@@ -1,0 +1,42 @@
+namespace ConsoleApp13
+{
+    internal class Program
+    {
+        static int[] InputScore()
+        {
+            int[] score = new int[3];
+            Console.WriteLine("점수를  입력하세요");
+            score[0]= Int32.Parse(Console.ReadLine());
+            Console.WriteLine($"국어점수:{score[0]}");
+            score[1]= Int32.Parse(Console.ReadLine());
+            Console.WriteLine($"영어점수:{score[1]}");
+            score[2]= Int32.Parse(Console.ReadLine());
+            Console.WriteLine($"수학점수:{score[2]}");
+            return score;
+        }
+        static int MakeTotal(int kor, int eng, int math)
+        {
+            int sum = 0;
+            sum = (kor + eng + math);
+            return sum;
+        }
+        static double AvgScore(int sum)
+        {
+            double avg = 0.0;
+            avg = sum / 3.0;
+            return avg; ;
+        }
+        static void Main(string[] args)
+        {
+            int sum = 0;
+            double avg = 0;
+            int[] score = InputScore();
+            sum = MakeTotal(score[0], score[1], score[2]);
+            Console.WriteLine($"총점은 {sum}입니다.");
+            avg = AvgScore(sum);
+            Console.WriteLine($"평균은 {avg:F2}입니다.");
+            //Console.WriteLine(
+
+        }
+    }
+}
