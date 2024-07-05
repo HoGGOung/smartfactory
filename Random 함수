@@ -1,0 +1,12 @@
+namespace ConsoleApp43
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+            random.Next(1,46);
+                Console.WriteLine(random.Next(1, 46));
+        }
+    }
+}
