@@ -1,0 +1,16 @@
+namespace Quiz11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int i = 77;
+            while (i <= 700)
+            {
+                Console.Write($"{i} ");
+                i++;
+            }
+            Console.WriteLine();
+        }
+    }
+}
