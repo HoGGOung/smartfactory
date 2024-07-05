@@ -1,0 +1,12 @@
+class Myclass
+  {
+      public void Print()
+      {
+          Console.WriteLine("Myclass Hello");
+      }
+  }//end of Myclass
+  static void Main(string[] args)
+{
+    Myclass mc = new Myclass();
+    mc.Print;
+}
