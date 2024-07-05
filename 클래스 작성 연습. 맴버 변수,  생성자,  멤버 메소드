@@ -1,0 +1,52 @@
+namespace OOPsample
+{
+    class Panda
+    {
+        //멤버변수
+        public int weight;
+        public string habit;
+        //생성자
+        public Panda()
+        {
+            this.weight = 0;
+            this.habit = "청두";
+        }
+        public Panda(string habit)
+        {
+            this.weight = 99;
+            this.habit = habit;
+        }
+        //멤버 메소드
+        public string SetWeight(int _weight)
+        {
+            this.weight = _weight;
+
+            return this.weight + "kg 입니다.";
+        }
+        public string GetWeight()
+        {
+            return this.weight + "kg 입니다.";
+        }
+
+        public string Showhabit(string habit)
+        {
+            this.habit = habit;
+            return "제 서식지는 " + this.habit + "입니다.";
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Panda Hui = new Panda();
+            Console.Write(Hui.Showhabit("애버랜드"));
+            Hui.SetWeight(30);
+            Console.WriteLine(Hui.GetWeight());
+
+            Panda Fubao = new Panda();
+            Console.Write(Fubao.Showhabit("청두"));
+            Fubao.SetWeight(100);
+            Console.WriteLine(Fubao.GetWeight());
+        }
+    }
+}
