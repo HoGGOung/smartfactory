@@ -1,0 +1,11 @@
+class Myclass
+ {   
+         public void Print(string s, double d)
+    {
+        Console.WriteLine($"{s}, speed : {d}");
+    }
+}
+ static void Main(string[] args)
+ {
+     mc.Print("수고하세요", 100);
+}
