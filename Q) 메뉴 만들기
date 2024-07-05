@@ -1,0 +1,51 @@
+namespace ConsoleApp20
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int choice;
+            string a = "데이터베이스";
+            string b = "입력";
+            string c = "검색";
+            string d = "수정";
+            string e = "삭제";
+            string f = "프로그램 종료";
+
+            do
+            {
+                Console.WriteLine("[메뉴선택]: ");
+                Console.WriteLine($"1. {a} {b}");
+                Console.WriteLine($"2. {a} {c}");
+                Console.WriteLine($"3. {a} {d}");
+                Console.WriteLine($"4. {a} {e}");
+                Console.WriteLine($"5. {f}");
+                Console.WriteLine("선택: ");
+
+
+                choice = Int32.Parse(Console.ReadLine());
+                
+                switch (choice)
+                {
+                    case 1:
+                Console.WriteLine($"{a} {b} 선택하셨습니다");
+                        break;
+                    case 2:
+                        Console.WriteLine($"{a} {c} 선택하셨습니다");
+                        break;
+                    case 3:
+                        Console.WriteLine($"{a} {d} 선택하셨습니다");
+                        break;
+                    case 4:
+                        Console.WriteLine($"{a} {e} 선택하셨습니다");
+                        break;
+                    case 5:
+                        Console.WriteLine("프로그램을 종료합니다");
+                        break;
+                    default:
+                        Console.WriteLine("잘못 입력 하셨습니다");
+                        break;
+                }
+            } while (choice != 5);
+        }
+    }
