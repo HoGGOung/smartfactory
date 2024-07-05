@@ -1,0 +1,18 @@
+namespace ConsoleApp51
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] arr4 = new int[5] { 21, 98, 43, 27, 13 };
+            int[] arr5 = { 21, 98, 43, 27, 13 };
+
+            Console.WriteLine($"Max : {arr4.Max()}");
+            Console.WriteLine($"Max : {arr4.Min()}");
+            Console.WriteLine($"Max : {arr4.Sum()}");
+            Console.WriteLine($"Max : {arr4.Average()}");
+            Console.WriteLine($"Max : {arr4.Count()}");
+
+        }
+    }
+}
