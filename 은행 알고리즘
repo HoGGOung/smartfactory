@@ -1,0 +1,31 @@
+namespace ConsoleApp58
+{
+    class BankAccout
+    {
+        private double balance = 0;
+        public void Deposit(double money)
+        {
+            balance += money;
+        }
+        public void Withdraw(double money)
+        {
+            balance -= money;
+        }
+        public double Getbalance()
+        {
+            Console.WriteLine(balance);
+            return balance;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            BankAccout accout = new BankAccout();
+            accout.Deposit(50000);
+                accout.Withdraw(30000);
+            accout.Getbalance();
+            
+        }
+    }
+}
