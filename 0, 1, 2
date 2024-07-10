@@ -1,0 +1,13 @@
+namespace Code99
+{
+    enum Days {Sun, Mon, Tue, Wed, Thu, Fri, Sat }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine((int)Days.Sun);
+            Console.WriteLine((int)Days.Mon);
+            Console.WriteLine((int)Days.Tue);
+        }
+    }
+}
