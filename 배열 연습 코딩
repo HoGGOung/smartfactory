@@ -1,0 +1,22 @@
+namespace ConsoleApp61
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] studntsId = new int[5] { 1, 2, 3, 4, 5 }; //선언과 동시에 초기화
+            //studnetId[0] =1; 선언 후 초기화
+            string[] studntName = new string[3] { "james", "Tom", "Jimmy" };
+
+            int[] evenNums = new int[10];
+
+            for(int x = 0; x<10; x++)
+            {
+                evenNums[x] = x * 2;
+
+                Console.WriteLine($"You just save {evenNums[x]} ");
+            }
+
+        }
+    }
+}
