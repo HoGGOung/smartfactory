@@ -1,0 +1,40 @@
+namespace ConsoleApp73
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> numberList = new List<int>();
+            Random random = new Random();
+            for(int i =0; i<7; i++)
+            {
+                numberList.Add(random.Next(1, 101));
+            }
+
+            numberList.Sort(); 
+            numberList.Reverse();
+            foreach (int i in numberList)
+            {
+                Console.Write(i+ " ");
+            }
+            Console.WriteLine();
+
+            numberList.RemoveAt(0);
+            numberList.Insert(0, -7);
+            numberList.RemoveAt(6);
+            numberList.Insert(6, -100);
+            foreach(int i in numberList)
+            {
+                Console.Write(i+ " ");
+            }
+            Console.WriteLine();
+
+            numberList.Remove(-7);
+            foreach (int i in numberList)
+            {
+                Console.Write(i + " ");
+            }
+
+        }
+    }
+}
