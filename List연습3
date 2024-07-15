@@ -1,0 +1,17 @@
+namespace ConsoleApp77
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            char[] arr = new char[3] { 'A', 'B', 'C' };
+            List<char> list = new List<char>();
+
+            foreach (char ch in arr)
+            {
+                Console.WriteLine(ch);
+            }
+
+        }
+    }
+}
