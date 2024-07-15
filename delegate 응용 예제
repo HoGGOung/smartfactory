@@ -1,0 +1,37 @@
+using System.Data;
+
+namespace ConsoleApp71
+{
+    class EmergencyCall 
+    {
+        public void PoliceCall()
+        {
+            Console.WriteLine("경찰서에 신고하다.");
+        }
+        public void FireStCall()
+        {
+            Console.WriteLine("소방서에 신고하다.");
+        }
+        public void Taxsst()
+        {
+            Console.WriteLine("국세청에 신고하다.");
+        }
+    }
+    internal class Program
+    {
+        delegate void Report();
+        static void Main(string[] args)
+        {
+            EmergencyCall ec = new EmergencyCall();
+            Report report = ec.PoliceCall;
+            report();
+
+            report = ec.FireStCall;
+            report();
+
+            report = ec.Taxsst;
+            report();
+
+        }
+    }
+}
