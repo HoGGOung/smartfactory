@@ -1,0 +1,16 @@
+namespace ConsoleApp77
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] arr = new int[3];
+
+            foreach (int i in arr)
+            {
+                Console.WriteLine(i);
+            }
+
+        }
+    }
+}
