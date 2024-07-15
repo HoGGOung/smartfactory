@@ -1,0 +1,70 @@
+namespace ConsoleApp64
+{
+    class Person  //명사, 대문자로 시작
+    {
+        //1. 맴버 변수 private + (string, int, byte)
+        private string name;
+        private int age;
+        
+        //2. 생성자, 1개 이상
+        public Person() //default 생성자
+        {
+        }
+        public Person(string _name)
+        {
+            name = _name;
+        }
+        public Person(string _name, int _age)
+        {
+            name = _name;
+            age = _age;
+        }
+
+        //3. 맴버 메소드
+        public void Eat()
+        {
+            Console.WriteLine("밥을 먹습니다");
+        }
+        public void Eat(string food)
+        {
+            Console.WriteLine($"{food}를 먹습니다");
+        }
+
+        //Getter, Setter(setter는 void로 시작함)
+        public string GetName()
+        {
+            return this.name;
+        }
+        public void SetName(string name)
+        {
+            this.name = name;
+        }
+        public int GetAge()
+        {
+            return this.age;
+        }
+        public void SetAge(int age)
+        {
+            this.age = age;
+        }
+        
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person tom = new Person();
+            tom.Eat();
+            tom.Eat("사과");
+            Console.WriteLine(tom.GetName());
+
+            Person sam = new Person("샘");
+            Console.WriteLine(sam.GetName());
+            Console.WriteLine(sam.GetAge());
+            Person tony = new Person("토니", 24);
+            Console.WriteLine(tony.GetName());
+            Console.WriteLine(tony.GetAge());
+
+        }
+    }
+}
