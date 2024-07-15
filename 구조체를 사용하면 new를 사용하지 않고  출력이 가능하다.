@@ -1,0 +1,19 @@
+namespace ConsoleApp69
+{
+    struct school
+    {
+        public string schName;
+        public string stName;
+        public int stGrade;
+        
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            school sc;
+            sc.schName = "레이크사이드 고등학교";
+            Console.WriteLine(sc.schName);
+        }
+    }
+}
