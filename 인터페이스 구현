@@ -1,0 +1,45 @@
+amespace ConsoleApp67
+{
+    interface IMaker //기본적으로 public이기 때문에 public을 넣지 않아도 된다.
+    {
+        void MadeWhere();
+        void Warehouce();
+    }
+    class Korea : IMaker
+    {
+        public void MadeWhere()
+        {
+            Console.WriteLine("국산입니다.");
+        }
+
+        public void Warehouce()
+        {
+            Console.WriteLine("상품 등록 완료");
+        }
+    }
+    class China : IMaker
+    {
+        public void MadeWhere()
+        {
+            Console.WriteLine("중국산입니다.");
+        }
+
+        public void Warehouce()
+        {
+            Console.WriteLine("상품 등록 완료");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            IMaker k= new Korea();
+            k.MadeWhere();
+            k.Warehouce();
+
+            IMaker c= new China();
+            c.MadeWhere();
+            c.Warehouce();
+        }
+    }
+}
