@@ -1,0 +1,564 @@
+using Oracle.ManagedDataAccess.Client;
+
+namespace project1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // 객체추가
+            int choice;
+            string a = "음악";
+            string b = "목록 보기";
+            string c = "수정";
+            string d = "삭제";
+            string e = "검색";
+            string f = "종료";
+            string g = "추가";
+
+            // SELECT 데이터 조회
+            string strConn = "Data Source=(DESCRIPTION=" +
+                "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
+                "(HOST=localhost)(PORT=1521)))" +
+                "(CONNECT_DATA=(SERVER=DEDICATED)" +
+                "(SERVICE_NAME=xe)));" +
+                "User Id=SCOTT;Password=TIGER;";
+
+            // 1. 연결 객체 만들기 - Client
+            OracleConnection conn = new OracleConnection(strConn);
+
+            try
+            {
+                // 2. 데이터베이스 접속을 위한 연결
+                conn.Open();
+
+                // 명령객체 생성
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+
+                // do~while문
+                do
+                {
+                    Console.WriteLine("메뉴 선택");
+                    Console.WriteLine("0. 테이블 생성 및 초기화");
+                    Console.WriteLine("1. " + a + g);
+                    Console.WriteLine("2. " + a + b);
+                    Console.WriteLine("3. " + a + c);
+                    Console.WriteLine("4. " + a + d);
+                    Console.WriteLine("5. " + a + e);
+                    Console.WriteLine("6. 내부조인");
+                    Console.WriteLine("7. " + f);
+                    Console.Write("번호 입력:");
+                    choice = Int32.Parse(Console.ReadLine());
+                    string input1, input3;
+                    int input2;
+                    switch (choice)
+                    {
+                        case 0:
+                            Console.WriteLine("테이블 초기화 선택");
+                            Console.WriteLine("1. 음반 테이블 초기화");
+                            Console.WriteLine("2. 노래방 테이블 초기화");
+                            Console.Write("번호 입력:");
+                            int Choice1 = Int32.Parse(Console.ReadLine());
+
+                            switch (Choice1)
+                            {
+                                case 1:
+                                    try
+                                    {
+                                        cmd.CommandText = "DROP TABLE Music";
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("Music 테이블 삭제 중 오류 발생 (테이블이 존재하지 않을 수 있습니다): " + ex.Message);
+                                    }
+
+                                    cmd.CommandText = "CREATE TABLE Music" +
+                                        "(MusicId NUMBER PRIMARY KEY, " +
+                                        "MusicName VARCHAR2(50), " +
+                                        "Singer VARCHAR2(20), " +
+                                        "Agency VARCHAR2(50), " +
+                                        "Lyricist VARCHAR2(100), " +
+                                        "Composer VARCHAR2(200))";
+                                    cmd.ExecuteNonQuery();
+                                    Console.WriteLine("Music 테이블이 성공적으로 생성되었습니다.");
+                                    break;
+
+                                case 2:
+                                    try
+                                    {
+                                        cmd.CommandText = "DROP TABLE Karaoke";
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("Karaoke 테이블 삭제 중 오류 발생 (테이블이 존재하지 않을 수 있습니다): " + ex.Message);
+                                    }
+
+                                    cmd.CommandText = "CREATE TABLE Karaoke" +
+                                        "(SongId NUMBER PRIMARY KEY, " +
+                                        "SongName VARCHAR2(50), " +
+                                        "Artist VARCHAR2(50), " +
+                                        "Duration NUMBER)";
+                                    cmd.ExecuteNonQuery();
+                                    Console.WriteLine("Karaoke 테이블이 성공적으로 생성되었습니다.");
+                                    break;
+
+                                default:
+                                    Console.WriteLine("잘못된 선택입니다. 다시 선택해주세요.");
+                                    break;
+                            }
+                            break;
+
+                            cmd.CommandText = "CREATE TABLE Music" +
+                                "(MusicId NUMBER PRIMARY KEY, " +
+                                "MusicName VARCHAR2(50), " +
+                                "Singer VARCHAR2(20), " +
+                                "Agency VARCHAR2(50), " +
+                                "Lyricist VARCHAR2(100), " +
+                                "Composer VARCHAR2(200))";
+                            cmd.ExecuteNonQuery();
+                            Console.WriteLine("테이블이 성공적으로 생성되었습니다.");
+                            break;
+
+                        case 1:
+                            Console.WriteLine("데이터 추가 선택");
+                            Console.WriteLine("1. 음반 추가");
+                            Console.WriteLine("2. 노래방 곡 추가");
+                            Console.Write("번호 입력:");
+                            int Choice2 = Int32.Parse(Console.ReadLine());
+
+                            switch (Choice2)
+                            {
+                                case 1:
+                                    // 음반 데이터 추가 부분
+                                    cmd.CommandText = "INSERT INTO Music (MusicId, MusicName, Singer, Agency, Lyricist, Composer) VALUES (:MusicId, :MusicName, :Singer, :Agency, :Lyricist, :Composer)";
+
+                                    // 사용자 입력 받기
+                                    Console.WriteLine("[음반 추가 기능]");
+                                    Console.WriteLine("======================");
+                                    Console.Write("음반기본키: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("MusicId", input1));
+                                    Console.Write("음반제목: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("MusicName", input1));
+                                    Console.Write("가수: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("Singer", input1));
+                                    Console.Write("소속사: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("Agency", input1));
+                                    Console.Write("작사가: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("Lyricist", input1));
+                                    Console.Write("작곡가: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("Composer", input1));
+
+                                    // SQL 명령 실행
+                                    try
+                                    {
+                                        cmd.ExecuteNonQuery();
+                                        Console.WriteLine("음반이 성공적으로 추가되었습니다.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("음반 추가 중 오류 발생: " + ex.Message);
+                                    }
+                                    Console.WriteLine("======================");
+
+                                    // 매개변수 초기화
+                                    cmd.Parameters.Clear();
+                                    break;
+
+                                case 2:
+                                    // 노래방 데이터 추가 부분
+                                    cmd.CommandText = "INSERT INTO Karaoke (SongId, SongName, Artist, Duration) VALUES (:SongId, :SongName, :Artist, :Duration)";
+
+                                    // 사용자 입력 받기
+                                    Console.WriteLine("[노래방 곡 추가 기능]");
+                                    Console.WriteLine("======================");
+                                    Console.Write("곡 ID: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("SongId", input1));
+                                    Console.Write("곡 이름: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("SongName", input1));
+                                    Console.Write("아티스트: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("Artist", input1));
+                                    Console.Write("곡 길이 (초): ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("Duration", input1));
+
+                                    // SQL 명령 실행
+                                    try
+                                    {
+                                        cmd.ExecuteNonQuery();
+                                        Console.WriteLine("노래방 곡이 성공적으로 추가되었습니다.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("노래방 곡 추가 중 오류 발생: " + ex.Message);
+                                    }
+                                    Console.WriteLine("======================");
+
+                                    // 매개변수 초기화
+                                    cmd.Parameters.Clear();
+                                    break;
+
+                                default:
+                                    Console.WriteLine("잘못된 선택입니다. 다시 선택해주세요.");
+                                    break;
+                            }
+                            break;
+
+                        case 2:
+                            Console.WriteLine("데이터 조회 선택");
+                            Console.WriteLine("1. 음반 조회");
+                            Console.WriteLine("2. 노래방 곡 조회");
+                            Console.Write("번호 입력:");
+                            int Choice3 = Int32.Parse(Console.ReadLine());
+
+                            switch (Choice3)
+                            {
+                                case 1:
+                                    // Music 데이터 조회 부분
+                                    cmd.CommandText = "SELECT * FROM Music";
+                                    using (OracleDataReader ora = cmd.ExecuteReader())
+                                    {
+                                        Console.WriteLine("[음반 목록 보기 기능]");
+                                        Console.WriteLine("======================");
+                                        Console.WriteLine("음반 목록");
+                                        Console.WriteLine("======================");
+                                        while (ora.Read())
+                                        {
+                                            int musicId = int.Parse(ora["MusicId"].ToString());
+                                            string musicName = ora["MusicName"].ToString();
+                                            string singer = ora["Singer"].ToString();
+                                            string agency = ora["Agency"].ToString();
+                                            string lyricist = ora["Lyricist"].ToString();
+                                            string composer = ora["Composer"].ToString();
+                                            Console.WriteLine($"ID: {musicId}, 음반제목: {musicName}, 가수: {singer}, 소속사: {agency}, 작사가: {lyricist}, 작곡가: {composer}");
+                                        }
+                                    }
+                                    break;
+
+                                case 2:
+                                    // Karaoke 데이터 조회 부분
+                                    cmd.CommandText = "SELECT * FROM Karaoke";
+                                    using (OracleDataReader ora = cmd.ExecuteReader())
+                                    {
+                                        Console.WriteLine("[노래방 곡 목록 보기 기능]");
+                                        Console.WriteLine("======================");
+                                        while (ora.Read())
+                                        {
+                                            int songId = int.Parse(ora["SongId"].ToString());
+                                            string songName = ora["SongName"].ToString();
+                                            string artist = ora["Artist"].ToString();
+                                            int duration = int.Parse(ora["Duration"].ToString());
+                                            Console.WriteLine($"곡 ID: {songId}, 곡 이름: {songName}, 아티스트: {artist}, 길이: {duration}초");
+                                        }
+                                    }
+                                    break;
+
+                                default:
+                                    Console.WriteLine("잘못된 선택입니다. 다시 선택해주세요.");
+                                    break;
+                            }
+                            break;
+
+                        case 3:
+                            Console.WriteLine("데이터 수정 선택");
+                            Console.WriteLine("1. 음반 수정");
+                            Console.WriteLine("2. 노래방 곡 수정");
+                            Console.Write("번호 입력:");
+                            int Choice4 = Int32.Parse(Console.ReadLine());
+
+                            switch (Choice4)
+                            {
+                                case 1:
+                                    // 음반 수정 기능
+                                    cmd.CommandText = "UPDATE Music SET";
+                                    Console.WriteLine("[음반 수정 기능]");
+                                    Console.WriteLine("======================");
+                                    Console.Write("변경할 음반의 ID를 입력하세요: ");
+                                    input1 = Console.ReadLine();
+                                    Console.Write("변경할 항목을 고르세요. 1. 음반제목, 2. 가수, 3. 소속사, 4. 작사가, 5. 작곡가: ");
+                                    input2 = Int32.Parse(Console.ReadLine());
+
+                                    if (input2 == 1)
+                                    {
+                                        Console.Write("변경할 음반제목을 입력하세요: ");
+                                        input3 = Console.ReadLine();
+                                        cmd.CommandText += " MusicName = '" + input3 + "' ";
+                                    }
+                                    else if (input2 == 2)
+                                    {
+                                        Console.Write("변경할 가수를 입력하세요: ");
+                                        input3 = Console.ReadLine();
+                                        cmd.CommandText += " Singer = '" + input3 + "' ";
+                                    }
+                                    else if (input2 == 3)
+                                    {
+                                        Console.Write("변경할 소속사를 입력하세요: ");
+                                        input3 = Console.ReadLine();
+                                        cmd.CommandText += " Agency = '" + input3 + "' ";
+                                    }
+                                    else if (input2 == 4)
+                                    {
+                                        Console.Write("변경할 작사가를 입력하세요: ");
+                                        input3 = Console.ReadLine();
+                                        cmd.CommandText += " Lyricist = '" + input3 + "' ";
+                                    }
+                                    else if (input2 == 5)
+                                    {
+                                        Console.Write("변경할 작곡가를 입력하세요: ");
+                                        input3 = Console.ReadLine();
+                                        cmd.CommandText += " Composer = '" + input3 + "' ";
+                                    }
+
+                                    cmd.CommandText += "WHERE MusicId = :MusicId";
+                                    cmd.Parameters.Add(new OracleParameter("MusicId", input1));
+                                    try
+                                    {
+                                        cmd.ExecuteNonQuery();
+                                        Console.WriteLine("음반이 성공적으로 수정되었습니다.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("음반 수정 중 오류 발생: " + ex.Message);
+                                    }
+                                    cmd.Parameters.Clear();
+                                    break;
+
+                                case 2:
+                                    // 노래방 곡 수정 기능
+                                    cmd.CommandText = "UPDATE Karaoke SET";
+                                    Console.WriteLine("[노래방 곡 수정 기능]");
+                                    Console.WriteLine("======================");
+                                    Console.Write("변경할 곡의 ID를 입력하세요: ");
+                                    input1 = Console.ReadLine();
+                                    Console.Write("변경할 항목을 고르세요. 1. 곡 이름, 2. 아티스트, 3. 길이: ");
+                                    input2 = Int32.Parse(Console.ReadLine());
+
+                                    if (input2 == 1)
+                                    {
+                                        Console.Write("변경할 곡 이름을 입력하세요: ");
+                                        input3 = Console.ReadLine();
+                                        cmd.CommandText += " SongName = '" + input3 + "' ";
+                                    }
+                                    else if (input2 == 2)
+                                    {
+                                        Console.Write("변경할 아티스트를 입력하세요: ");
+                                        input3 = Console.ReadLine();
+                                        cmd.CommandText += " Artist = '" + input3 + "' ";
+                                    }
+                                    else if (input2 == 3)
+                                    {
+                                        Console.Write("변경할 길이를 입력하세요: ");
+                                        input3 = Console.ReadLine();
+                                        cmd.CommandText += " Duration = " + input3 + " ";
+                                    }
+
+                                    cmd.CommandText += "WHERE SongId = :SongId";
+                                    cmd.Parameters.Add(new OracleParameter("SongId", input1));
+                                    try
+                                    {
+                                        cmd.ExecuteNonQuery();
+                                        Console.WriteLine("노래방 곡이 성공적으로 수정되었습니다.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("노래방 곡 수정 중 오류 발생: " + ex.Message);
+                                    }
+                                    cmd.Parameters.Clear();
+                                    break;
+
+                                default:
+                                    Console.WriteLine("잘못된 선택입니다. 다시 선택해주세요.");
+                                    break;
+                            }
+                            break;
+
+                        case 4:
+                            Console.WriteLine("데이터 삭제 선택");
+                            Console.WriteLine("1. 음반 삭제");
+                            Console.WriteLine("2. 노래방 곡 삭제");
+                            Console.Write("번호 입력:");
+                            int Choice5 = Int32.Parse(Console.ReadLine());
+
+                            switch (Choice5)
+                            {
+                                case 1:
+                                    // 음반 삭제 기능
+                                    cmd.CommandText = "DELETE FROM Music WHERE MusicId = :MusicId";
+                                    Console.WriteLine("[음반 삭제 기능]");
+                                    Console.WriteLine("======================");
+                                    Console.Write("삭제할 음반의 ID를 입력하세요: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("MusicId", input1));
+
+                                    try
+                                    {
+                                        cmd.ExecuteNonQuery();
+                                        Console.WriteLine("음반이 성공적으로 삭제되었습니다.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("음반 삭제 중 오류 발생: " + ex.Message);
+                                    }
+                                    cmd.Parameters.Clear();
+                                    break;
+
+                                case 2:
+                                    // 노래방 곡 삭제 기능
+                                    cmd.CommandText = "DELETE FROM Karaoke WHERE SongId = :SongId";
+                                    Console.WriteLine("[노래방 곡 삭제 기능]");
+                                    Console.WriteLine("======================");
+                                    Console.Write("삭제할 곡의 ID를 입력하세요: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Add(new OracleParameter("SongId", input1));
+
+                                    try
+                                    {
+                                        cmd.ExecuteNonQuery();
+                                        Console.WriteLine("노래방 곡이 성공적으로 삭제되었습니다.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("노래방 곡 삭제 중 오류 발생: " + ex.Message);
+                                    }
+                                    cmd.Parameters.Clear();
+                                    break;
+
+                                default:
+                                    Console.WriteLine("잘못된 선택입니다. 다시 선택해주세요.");
+                                    break;
+                            }
+                            break;
+
+                        case 5:
+                            Console.WriteLine("데이터 검색 선택");
+                            Console.WriteLine("1. 음반 검색");
+                            Console.WriteLine("2. 노래방 곡 검색");
+                            Console.Write("번호 입력:");
+                            int Choice6 = Int32.Parse(Console.ReadLine());
+
+                            switch (Choice6)
+                            {
+                                case 1:
+                                    // 음반 검색 기능
+                                    cmd.CommandText = "SELECT * FROM Music WHERE MusicName LIKE :SearchName";
+                                    Console.WriteLine("[음반 검색 기능]");
+                                    Console.WriteLine("======================");
+                                    Console.Write("검색할 음반제목을 입력하세요: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Clear();
+                                    cmd.Parameters.Add(new OracleParameter("SearchName", "%" + input1 + "%"));
+
+                                    using (OracleDataReader rdr = cmd.ExecuteReader())
+                                    {
+                                        Console.WriteLine("======================");
+                                        Console.WriteLine("검색 결과");
+                                        while (rdr.Read())
+                                        {
+                                            int musicId = int.Parse(rdr["MusicId"].ToString());
+                                            string musicName = rdr["MusicName"].ToString();
+                                            string singer = rdr["Singer"].ToString();
+                                            string agency = rdr["Agency"].ToString();
+                                            string lyricist = rdr["Lyricist"].ToString();
+                                            string composer = rdr["Composer"].ToString();
+                                            Console.WriteLine($"ID: {musicId}, 음반제목: {musicName}, 가수: {singer}, 소속사: {agency}, 작사가: {lyricist}, 작곡가: {composer}");
+                                        }
+                                    }
+                                    Console.WriteLine("======================");
+                                    break;
+
+                                case 2:
+                                    // 노래방 곡 검색 기능
+                                    cmd.CommandText = "SELECT * FROM Karaoke WHERE SongName LIKE :SearchName";
+                                    Console.WriteLine("[노래방 곡 검색 기능]");
+                                    Console.WriteLine("======================");
+                                    Console.Write("검색할 곡 이름을 입력하세요: ");
+                                    input1 = Console.ReadLine();
+                                    cmd.Parameters.Clear();
+                                    cmd.Parameters.Add(new OracleParameter("SearchName", "%" + input1 + "%"));
+
+                                    using (OracleDataReader rdr = cmd.ExecuteReader())
+                                    {
+                                        Console.WriteLine("======================");
+                                        Console.WriteLine("검색 결과");
+                                        while (rdr.Read())
+                                        {
+                                            int songId = int.Parse(rdr["SongId"].ToString());
+                                            string songName = rdr["SongName"].ToString();
+                                            string artist = rdr["Artist"].ToString();
+                                            int duration = int.Parse(rdr["Duration"].ToString());
+                                            Console.WriteLine($"곡 ID: {songId}, 곡 이름: {songName}, 아티스트: {artist}, 길이: {duration}초");
+                                        }
+                                    }
+                                    Console.WriteLine("======================");
+                                    break;
+
+                                default:
+                                    Console.WriteLine("잘못된 선택입니다. 다시 선택해주세요.");
+                                    break;
+                            }
+                            break;
+
+                        case 6:
+                            Console.WriteLine("[음반과 노래방 곡 정보 조인 조회 기능]");
+                            Console.WriteLine("======================");
+                            Console.Write("조회할 음반의 제목을 입력하세요: ");
+                            input1 = Console.ReadLine();
+
+                            cmd.CommandText = "SELECT m.MusicId, m.MusicName, m.Singer, k.SongId, k.SongName, k.Artist, k.Duration " +
+                                              "FROM Music m " +
+                                              "JOIN Karaoke k ON m.MusicName = k.SongName " +
+                                              "WHERE m.MusicName = :MusicName";
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.Add(new OracleParameter("MusicName", input1));
+
+                            using (OracleDataReader rdr = cmd.ExecuteReader())
+                            {
+                                Console.WriteLine("======================");
+                                Console.WriteLine("조인 결과");
+                                while (rdr.Read())
+                                {
+                                    int musicId = int.Parse(rdr["MusicId"].ToString());
+                                    string musicName = rdr["MusicName"].ToString();
+                                    string singer = rdr["Singer"].ToString();
+                                    int songId = int.Parse(rdr["SongId"].ToString());
+                                    string songName = rdr["SongName"].ToString();
+                                    string artist = rdr["Artist"].ToString();
+                                    int duration = int.Parse(rdr["Duration"].ToString());
+                                    Console.WriteLine($"음반 ID: {musicId}, 음반 제목: {musicName}, 가수: {singer} -> 노래방 곡 ID: {songId}, 곡 이름: {songName}, 아티스트: {artist}, 길이: {duration}초");
+                                }
+                            }
+                            Console.WriteLine("======================");
+                            break;
+
+                        case 7:
+                            Console.WriteLine("프로그램을 종료합니다");
+                            break;
+
+                        default:
+                            Console.WriteLine("다시 입력해주세요");
+                            break;
+                    }
+
+                } while (choice != 7);
+
+                // 연결 해제
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("오류 발생: " + ex.Message);
+            }
+        }
+    }
+}
