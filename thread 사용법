@@ -1,0 +1,21 @@
+namespace ConsoleApp119
+{
+    internal class Program
+    {
+        static void Print()
+        {
+            Thread.Sleep(3000);
+            Console.WriteLine("Hello, World!");
+        }
+        static void Main(string[] args)
+        {
+            Thread t1 = new Thread(new ThreadStart(Print));
+            t1.IsBackground = true;
+
+            t1.Start();
+
+            t1.Join();
+            Console.WriteLine("메인프로그램 종료");
+        }
+    }
+}
