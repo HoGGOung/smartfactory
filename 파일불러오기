@@ -1,0 +1,25 @@
+using System.Text;
+
+namespace ConsoleApp118
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Temp\abc.txt";
+            StreamReader sr = new StreamReader(path, Encoding.UTF8);
+            string txt = sr.ReadToEnd();
+           
+
+            //MemoryStream
+            MemoryStream ms = new MemoryStream();
+            byte[] strBytes = Encoding.UTF8.GetBytes(txt); //문자열 직렬화 -byte 배열로 만들었다.
+            ms.Write(strBytes, 0 , strBytes.Length);
+            ms.Position = 0;
+
+            StreamReader st2 = new StreamReader(ms, Encoding.UTF8, true);
+            txt = st2.ReadToEnd();
+            Console.Write(txt);
+        }
+    }
+}
